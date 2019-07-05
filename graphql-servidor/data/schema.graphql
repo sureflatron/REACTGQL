@@ -1,0 +1,57 @@
+
+""" TRAER CLIENTE """
+type Cliente {
+    id:ID
+    nombre:String
+    apellido:String
+    empresa:String
+    emails:[Email]
+    edad:Int
+    tipo:TipoCliente
+    pedidos:[Pedido]
+}
+
+type Pedido{
+    producto:String
+    precio:Int
+}
+
+type Email{
+    email:String
+}
+"""ENUM """
+enum TipoCliente{
+    BASICO
+    PREMIUN
+}
+
+type Query {
+    getClientes(limite:Int):[Cliente]
+   getCliente(id:ID):Cliente
+}
+"""CAMPOS PARA PEDIDOS"""
+input PedidoInput{
+    producto:String
+    precio:Int
+}
+""" CAMPOS PARA EMAIL"""
+input EmailInput{
+    email:String
+}
+""" CAMPOS PARA LOS CLIENTES NUEVOS """
+input Clienteinput{
+    id:ID
+    nombre:String!
+    apellido:String!
+    empresa:String!
+    emails:[EmailInput]
+    edad:Int
+    tipo:TipoCliente!
+    pedidos:[PedidoInput]
+}
+""" MUTACION PARA CREAR NUEVOS CLIENTES """
+type Mutation{
+    crearCliente(input:Clienteinput):Cliente
+    actualizarCliente(input:Clienteinput):Cliente
+    eliminarCliente(id:ID!):String
+}
